@@ -1,0 +1,51 @@
+.still-msg {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  text-align: center;
+  z-index: 10000;
+}
+.still-msg .still-inner-msg {
+  padding: 10px 20px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  margin: 0 auto;
+  border-radius: 20px;
+  text-align: center;
+  font-size: 14px;
+  max-width: 80%;
+  display: inline-block;
+  border-radius: 10px;
+}
+.still-msg .still-inner-msg .still-inner-close {
+  font-family: Arial, "Helvetica CY", "Nimbus Sans L", sans-serif !important;
+  background-color: transparent;
+  vertical-align: middle;
+  color: #e3e3e3;
+  margin-left: 17px;
+  font-size: 18px;
+  padding-bottom: 6px;
+  border: none;
+  cursor: pointer;
+}
+.still-msg.lock .still-inner-close {
+  display: none;
+}
+.still-msg.error .still-inner-msg {
+  background-color: #ea644a;
+}
+.still-msg.success .still-inner-msg {
+  background-color: #38b03f;
+}
+.still-msg.warning .still-inner-msg {
+  background-color: #f1a325;
+}
+.still-msg.info .still-inner-msg {
+  background-color: #03b8cf;
+}
+.still-msg.spec .still-inner-msg {
+  background-color: #8666b8;
+}
+.still-msg.fade .still-inner-msg {
+  background-color: transparent;
+}

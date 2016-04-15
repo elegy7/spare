@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
+    <title>轮播图</title>
+    <style>
+    *{
+        padding: 0;
+        margin: 0;
+    }
+    </style>
+</head>
+<body>
+    <div id="banner">
+        <ul>
+            <li><img src="http://slidesjs.com/img/example-slide-350-1.jpg" alt="这是第一个标题"></li>
+            <li><img src="http://slidesjs.com/img/example-slide-350-2.jpg"></li>
+            <li><img src="http://slidesjs.com/img/example-slide-350-3.jpg"></li>
+            <li><img src="http://slidesjs.com/img/example-slide-350-4.jpg"></li>
+            <!-- <li><img src="./img(1).jpg" alt="这是一个标题"></li>
+            <li><a href="http://baidu.com"><img src="./img(2).jpg" alt="这是第二个标题"></a></li>
+            <li><img src="./img(3).jpg"></li>
+            <li><img src="./img(4).jpg"></li> -->
+        </ul>
+    </div>
+    <script>
+    </script>
+    <script src="../seajs/sea.mix.js"></script>
+    <script>
+    seajs.use(['./slide.js','./slide.css'],function(slide){
+        slide.init({
+            el: '#banner',
+            // arrow: true,
+            delay: 5000,
+            radius: 5,
+            hideBar: false,
+            // width: $(window).width(),
+            /*height: 350,*/
+            callback: function(index){
+                console.log(index)
+            }
+        })
+    })
+    </script>
+</body>
+</html>

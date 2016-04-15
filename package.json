@@ -1,0 +1,46 @@
+{
+  "name": "vue-seajs",
+  "version": "0.1.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "dev": "gulp watch",
+    "build": "gulp && gulp less && gulp min",
+    "fix": "gulp fix && gulp min"
+  },
+  "author": "Elegy",
+  "js": {
+    "base": "./src",
+    "apps": {
+      "util": "common/util.js",
+      "slide": "slide/slide.js"
+    },
+    "source": [
+      "common/{util,ie}.js",
+      "slides/banner.js",
+      "valid/*.js",
+      "message/*.js"
+    ],
+    "commons": [],
+    "ignore": [],
+    "output": "still.js",
+    "dest": "./dist",
+    "uglify": false
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-clean": "^0.3.2",
+    "gulp-coffee": "^1.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-less": "^1.0",
+    "gulp-logger": "0.0.2",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sass": "^2.2.0",
+    "gulp-seajs-package-diy": "0.0.8",
+    "gulp-uglify": "^1.5.3",
+    "gulp-imagemin": "^2.4.0",
+    "gulp-watch": "^4.3.5"
+  }
+}

@@ -1,0 +1,93 @@
+.still-slide {
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.still-slide ul {
+    position: absolute;
+    white-space: nowrap;
+    width: 100%;
+    top: 0;
+    left: 0;
+    text-align: left;
+}
+
+.still-slide li {
+    float: left;
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+}
+.slide-bar {
+    position: absolute;
+    padding: 12px 0 10px 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.6);
+    width: 100%;
+    text-align: right;
+    bottom: -50px;
+}
+
+.slide-title{
+    position: absolute;
+    bottom: 0;
+    display: inline-block;
+    padding: 12px 0;
+    left: 20px;
+    font-size: 16px;
+    white-space: nowrap;
+    line-height: 18px;
+    z-index: 2;
+}
+.slide-title a{
+    text-decoration: none;
+    color: white;
+}
+.slide-tab{
+    padding: 0 20px;
+    width: auto;
+    display: inline-block;
+}
+.slide-tab a {
+    margin: 0 7px;
+    height: 20px;
+    width: 20px;
+    border-radius: 100%;
+    display: inline-block;
+    background-color: white;
+    cursor: pointer;
+}
+
+.slide-tab a.active {
+    background-color: #3da75e;
+}
+.slide-turn{
+    position: absolute;
+    height: 100%;
+    width: 50px;
+    top: 0;
+    display: inline-block;
+    font-size: 30px;
+    background-color: rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+.slide-turn span{
+    position: absolute;
+    height: 50px;
+    margin-top: -25px;
+    top: 50%;
+    left: 15px;
+    color: white;
+    -moz-user-select: none; /*火狐*/
+    -webkit-user-select: none;  /*webkit浏览器*/
+    -ms-user-select: none;   /*IE10*/
+    -khtml-user-select: none; /*早期浏览器*/
+    user-select: none;;
+}
+.slide-turn.slide-prev{
+    left: 0;
+}
+.slide-turn.slide-next{
+    right: 0;
+}

@@ -1,0 +1,3 @@
+v0.0.0 still的第一个版本.从eerie更新过来
+v0.0.5 修复了valid的bug,修复了css压缩的bug
+v0.0.6 调整了css内的构建路径管理(test)

@@ -18,6 +18,12 @@ define(function(require, exports, module){
             if(siAlert) clearTimeout(siAlert)
             callback()
         })
+        // 点击空白处关闭提示框, 以免验证提示时挡住输入框
+        $('.still-msg').click(function(e){
+            if($(e.target).closest('.still-inner-msg').length == 0){
+                $('.still-inner-close').trigger('click')
+            }
+        })
         if(option.indexOf('lock') != -1) return
         siAlert = setTimeout(function(){
             $('.still-msg').fadeOut(300,function(){

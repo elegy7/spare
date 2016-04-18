@@ -1,10 +1,9 @@
 define(function (require, exports, module) {
     require('common/util')
     require('valid/valid.css')
-    still.Valid = still.Valid || {}
-    still.Valid.asyncRules = {}
-    still.Valid.__doValidNow = false
-    still.Valid.rules = {
+    var asyncRules = {}, __doValidNow = false
+
+    exports.rules = {
         email:{
             validator: function(value, param){
                 if(value=='')return true
@@ -90,9 +89,8 @@ define(function (require, exports, module) {
             message: '用户名不能含有特殊字符'
         }
     }
-
     //错误提示方法
-    still.Valid.showTip = function($input, $tip){
+    exports.showTip = function($input, $tip){
         var position = $input.position()
         var offsetWidth = $input.outerWidth()
         var offsetHeight = $input.outerHeight()
@@ -138,7 +136,7 @@ define(function (require, exports, module) {
                         $this.addClass('ee-invalid')
                         $invalid.find('.tip-content').text(rule.message) 
                         $this.after($invalid) 
-                        still.Valid.showTip($this,$invalid)
+                        exports.showTip($this,$invalid)
                         break           
                     }
                 }
@@ -161,7 +159,7 @@ define(function (require, exports, module) {
                 $this.addClass('ee-invalid')
                 $invalid.find('.tip-content').text('请将信息填写完整')
                 $this.after($invalid)           
-                if(e.type != 'change') still.Valid.showTip($this,$invalid)
+                if(e.type != 'change') exports.showTip($this,$invalid)
             }else{
                 //如果不为空,则进入自定义验证阶段
                 if(typeof options.validType == 'string'){
@@ -169,18 +167,18 @@ define(function (require, exports, module) {
                     options.validType = [options.validType]
                 }
                 //遍历Rules数组里的所有自定义验证
-                var inRule = doValid.call(this, still.Valid.rules, options, $this, $invalid, false)
+                var inRule = doValid.call(this, exports.rules, options, $this, $invalid, false)
                 //如果不在本地验证规则里,则在异步验证规则里判断
                 if(!inRule && e['type']!='change'){
-                    if(still.Valid.__doValidNow){
+                    if(__doValidNow){
                         //进行异步验证的立即执行模式
                         //遍历asyncRules数组里的所有自定义验证
-                        doValid.call(this, still.Valid.asyncRules, options, $this, $invalid)
-                        still.Valid.__doValidNow = false
+                        doValid.call(this, asyncRules, options, $this, $invalid)
+                        __doValidNow = false
                     }else{
                         loopValid = setTimeout(function(){
                             //遍历asyncRules数组里的所有自定义验证
-                            doValid.call(this, still.Valid.asyncRules, options, $this, $invalid)
+                            doValid.call(this, asyncRules, options, $this, $invalid)
                         },700)
                     }
                 }
@@ -194,7 +192,7 @@ define(function (require, exports, module) {
         $('.ee-invalid').removeClass('ee-invalid')
         var end = false
         //开启异步验证的立即执行模式
-        still.Valid.__doValidNow = true
+        __doValidNow = true
         $('.ee-validbox', this).each(function(index, el){
             if(!end){
                 $(el).trigger('eValid')

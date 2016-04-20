@@ -1,93 +1,32 @@
 .ee-invalid{
-    color: #f7462e !important;
+    color: #f7462e;
     border-color: #f7462e !important;
 }
 .ee-invalid:focus{
-    border-color: #f7462e !important;
+    border-color: #f7462e;
 }
 .ee-invalid:-moz-placeholder {
-  color: #ed3957 !important;
+  color: #ed3957;
 }
 .ee-invalid::-moz-placeholder {
-  color: #ed3957 !important;
+  color: #ed3957;
 }
 .ee-invalid:-ms-input-placeholder {
-  color: #ed3957 !important;
+  color: #ed3957;
 }
 .ee-invalid::-webkit-input-placeholder {
-  color: #ed3957 !important;
+  color: #ed3957;
 }
 .ee-invalid-tip{
-    /*width: 0px;*/ /*ver1.1*/
-    /*float: left;*//*ver1.1*/
-    position: absolute; /*ver1.2*/
-    line-height: 25px;
-    height: 25px;
-    z-index: 9999;
-}
-.ee-invalid-tip .tip-content{
-    /*position: relative;*/ /*ver1.0*/
-    position: absolute; /*ver1.2*/
-    background-color: #FFFFCC;
-    color: #2D2D2D;
-    border-radius: 5px;
-    border: 1px solid #CC9933;
+    width: 100%;
+    height: 30px;
+    background: #ff9f22;
+    margin: 5px 0 0 0;
+    border: 1px solid #ff9f22;
+    line-height: 30px;
+    font-family: "微软雅黑";
     font-size: 12px;
-    height: 100%; 
-    width: auto;
-    padding-left:5px; 
-    margin-left: -5px;
-    margin-right: -1000px;
-    text-align: center;
-    float: left;
-}
-.ee-invalid-tip .tip-arrow{
-    /*position: relative;*/ /*ver1.0*/
-    position: absolute; /*ver1.2*/
-    left: -9px; /*ver1.2*/
-    background-color: #FFFFCC;
-    color: #2D2D2D;
-    border-bottom: 1px solid #CC9933;
-    border-left: 1px solid #CC9933;
-    font-size: 12px;
-    height: 8px;
-    width: 8px;
-    top:8px;
-    text-align: center;
-    float: left;
-    z-index: 2;
-    transform:rotate(48deg);
-    -ms-transform:rotate(48deg);     /* IE 9 */
-    -moz-transform:rotate(48deg);    /* Firefox */
-    -webkit-transform:rotate(48deg); /* Safari 和 Chrome */
-    -o-transform:rotate(48deg);  /* Opera */
-}
-
-.ee-invalid-tip.new .tip-content{
-    background: transparent;
-    color: #f7462e;
-    border: none;
-    border-radius: 0;
-    padding: 0;
-    margin: 0;
-    text-align: left;
-    padding-left: 20px;
-    box-sizing: border-box;
-
-}
-.ee-invalid-tip.new .tip-content:before {
-  background-color: #f7462e;
-  border-radius: 100%;
-  color: #fff;
-  content: "×";
-  cursor: pointer;
-  position: absolute;
-  left: 0;
-  top: 50%;
-  margin-top: -7px;
-  font-size: 14px;
-  width: 14px;
-  height: 14px;
-  line-height: 14px;
-  text-align: center;
+    color: #fff;
+    border-radius: 2px;
+    padding-left: 10px;
 }

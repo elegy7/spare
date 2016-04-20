@@ -1,6 +1,11 @@
 define(function (require, exports, module) {
     require('common/util')
     require('valid/valid.css')
+    
+    // 扩展String对象
+    String.prototype.trim = function(){
+        return this.replace(/(^\s*)|(\s*$)/g, "")
+    }
     var asyncRules = {}, __doValidNow = false
 
     exports.rules = {
@@ -106,11 +111,15 @@ define(function (require, exports, module) {
             evt: config.evt ? config.evt+' eValid' : 'keyup change focus eValid',
             ver: config.ver
         }
+        //清空之前的事件和样式
+        $(this).off(conf.evt)
+        $('.ee-invalid-tip').remove()
+        $('.ee-invalid').removeClass('ee-invalid')
         //需要验证的input框
         var $vaild = $(this).find('.ee-validbox')
         //初始化验证提示tip
         var vHeight = $vaild[0].clientHeight
-        var $invalid = $('<div class="ee-invalid-tip"><div class="tip-arrow"></div><div class="tip-content"></div></div>')
+        var $invalid = $('<div class="ee-invalid-tip"></div>')
 
         //定义匹配验证规则并执行验证的方法
         var doValid = function(rules, options, $this, $invalid, async){
@@ -134,7 +143,7 @@ define(function (require, exports, module) {
                             rule.message = rule.message.replace('{'+i+'}',param[i])
                         }
                         $this.addClass('ee-invalid')
-                        $invalid.find('.tip-content').text(rule.message) 
+                        $invalid.text(rule.message) 
                         $this.after($invalid) 
                         exports.showTip($this,$invalid)
                         break           
@@ -154,10 +163,10 @@ define(function (require, exports, module) {
             //重新触发事件时先移除错误提示
             $this.find('+.ee-invalid-tip').remove()
             $this.removeClass('ee-invalid')
-            if(options['required'] && $this.val()==''){
+            if(options['required'] && $this.val().trim()==''){
                 //判断否未为空
                 $this.addClass('ee-invalid')
-                $invalid.find('.tip-content').text('请将信息填写完整')
+                $invalid.text('请将信息填写完整')
                 $this.after($invalid)           
                 if(e.type != 'change') exports.showTip($this,$invalid)
             }else{

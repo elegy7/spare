@@ -1,12 +1,15 @@
 define(function (require, exports, module) {
-    require('common/util')
+    var Util = require('common/util')
     require('valid/valid.css')
     
     // 扩展String对象
     String.prototype.trim = function(){
         return this.replace(/(^\s*)|(\s*$)/g, "")
     }
-    var asyncRules = {}, __doValidNow = false
+    //立即验证模式
+    var __doValidNow = false
+
+    exports.asyncRules = {}
 
     exports.rules = {
         email:{
@@ -48,7 +51,7 @@ define(function (require, exports, module) {
         passEQ:{
             validator: function(value, param){
                 if(value=='')return true
-                var passOne = $(this).closest('form').find('[name='+param+']')[0]
+                var passOne = $(this).closest('form').find('[name='+param[0]+']')[0]
                 return $(passOne).val()==value
             },
             message: '两次密码输入必须一致'
@@ -92,6 +95,14 @@ define(function (require, exports, module) {
                 return !reg.test(value)
             },
             message: '用户名不能含有特殊字符'
+        },
+        card:{
+            validator: function(value, param){
+                if(value == '')return true
+                var reg = /^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/
+                return reg.test(value)
+            },
+            message: '身份证号只能为15位或18位'
         }
     }
     //错误提示方法
@@ -116,7 +127,7 @@ define(function (require, exports, module) {
         $('.ee-invalid-tip').remove()
         $('.ee-invalid').removeClass('ee-invalid')
         //需要验证的input框
-        var $vaild = $(this).find('.ee-validbox')
+        var $vaild = $(this).find('[data-valid]')
         //初始化验证提示tip
         var vHeight = $vaild[0].clientHeight
         var $invalid = $('<div class="ee-invalid-tip"></div>')
@@ -125,11 +136,11 @@ define(function (require, exports, module) {
         var doValid = function(rules, options, $this, $invalid, async){
             //这个字段为了判断是否通过本地验证,如果未通过,则不进行异步验证
             var inRule = false
-            for(var i in options.validType){
+            for(var i in options){
                 //根据自定义验证的名称去匹配验证规则里的验证方法
-                var rule = still.Util.clone(rules[options.validType[i].split('[')[0]])  //ver1.3的bug修复
+                var rule = Util.clone(rules[options[i].split('(')[0]])  //ver1.3的bug修复
                 //获得自定义验证的参数
-                var param = options.validType[i].split('[')[1] ? options.validType[i].split('[')[1].split(']')[0].split(',') : ''
+                var param = options[i].split('(')[1] ? options[i].split('(')[1].split(')')[0].split(',') : ''
                 //如果在验证规则里匹配到了,则进行验证
                 if(rule){
                     //调用验证规则里的方法,并将this指向到input框
@@ -153,45 +164,35 @@ define(function (require, exports, module) {
             return inRule
         }
         //绑定input框的 keyup 和 change事件
-        var loopValid
+        var util_timeout = Util.timeout()
         $vaild.off(conf.evt).on(conf.evt,function(e){
-            if(loopValid)clearTimeout(loopValid)
-            var $this = $(this)
-            //获得验证配置的字符串并将他转换成对象
-            var options = $this.data('options')
-            options = still.Util.strToObj(options)
-            //重新触发事件时先移除错误提示
-            $this.find('+.ee-invalid-tip').remove()
-            $this.removeClass('ee-invalid')
-            if(options['required'] && $this.val().trim()==''){
-                //判断否未为空
-                $this.addClass('ee-invalid')
-                $invalid.text('请将信息填写完整')
-                $this.after($invalid)           
-                if(e.type != 'change') exports.showTip($this,$invalid)
-            }else{
-                //如果不为空,则进入自定义验证阶段
-                if(typeof options.validType == 'string'){
-                    //因为支持多个自定义验证, 如果只有一个则先将其放入数组
-                    options.validType = [options.validType]
-                }
-                //遍历Rules数组里的所有自定义验证
-                var inRule = doValid.call(this, exports.rules, options, $this, $invalid, false)
-                //如果不在本地验证规则里,则在异步验证规则里判断
-                if(!inRule && e['type']!='change'){
-                    if(__doValidNow){
-                        //进行异步验证的立即执行模式
-                        //遍历asyncRules数组里的所有自定义验证
-                        doValid.call(this, asyncRules, options, $this, $invalid)
-                        __doValidNow = false
-                    }else{
-                        loopValid = setTimeout(function(){
-                            //遍历asyncRules数组里的所有自定义验证
-                            doValid.call(this, asyncRules, options, $this, $invalid)
-                        },700)
+            var $this = $(this),
+            timeout = __doValidNow ? function(cb){cb()} : util_timeout
+            timeout(function(){
+                //获得验证配置的字符串并将他转换成对象
+                var options = eval( $this.data('valid') )
+                //重新触发事件时先移除错误提示
+                $this.find('+.ee-invalid-tip').remove()
+                $this.removeClass('ee-invalid')
+                //得到"不为空"这条规则的所在位置
+                var requiredIndex = options.indexOf('required')
+                if(requiredIndex!=-1 && $this.val().trim()==''){
+                    //判断否未为空
+                    $this.addClass('ee-invalid')
+                    $invalid.text('请将信息填写完整')
+                    $this.after($invalid)           
+                    if(e.type != 'change') exports.showTip($this,$invalid)
+                }else{
+                    //如果不为空,则进入自定义验证阶段
+                    options.splice(requiredIndex,1)
+                    //遍历Rules数组里的所有自定义验证
+                    var inRule = doValid.call(this, exports.rules, options, $this, $invalid, false)
+                    //如果不在本地验证规则里,则在异步验证规则里判断
+                    if(!inRule && e['type']!='change'){
+                        doValid.call(this, exports.asyncRules, options, $this, $invalid)
                     }
                 }
-            }
+            },500)
         })
     }
     //检查表单验证
@@ -202,13 +203,14 @@ define(function (require, exports, module) {
         var end = false
         //开启异步验证的立即执行模式
         __doValidNow = true
-        $('.ee-validbox', this).each(function(index, el){
+        $('[data-valid]', this).each(function(index, el){
             if(!end){
                 $(el).trigger('eValid')
                 hasError = $(el).hasClass('ee-invalid')
                 if(hasError) end = true
             }
         })
+        __doValidNow = false
         return end ? false : true
     }
 

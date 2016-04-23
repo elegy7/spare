@@ -184,7 +184,7 @@ define(function (require, exports, module) {
                     if(e.type != 'change') exports.showTip($this,$invalid)
                 }else{
                     //如果不为空,则进入自定义验证阶段
-                    options.splice(requiredIndex,1)
+                    if(requiredIndex != -1 ) options.splice(requiredIndex,1)
                     //遍历Rules数组里的所有自定义验证
                     var inRule = doValid.call(this, exports.rules, options, $this, $invalid, false)
                     //如果不在本地验证规则里,则在异步验证规则里判断

@@ -5,7 +5,6 @@ var gulp = require('gulp');
 var cmd = require( 'gulp-seajs-package-diy' );
 var concat = require("gulp-concat");
 var less = require('gulp-less');
-var sass = require('gulp-sass');
 var coffee = require('gulp-coffee');
 var autoprefixer = require('gulp-autoprefixer');
 var plumber = require('gulp-plumber');
@@ -91,7 +90,7 @@ gulp.task('imagemin', function () {
         .pipe(gulp.dest(config_img.dest));
 });
 gulp.task('watch', function() {
-    watch(__dirname+'/{css,js,assets}/**/*.{less,coffee,scss,sass,js,jpg,gif,png}',{events:['add', 'change']}, function(event){
+    watch(__dirname+'/{css,js,assets}/**/*.{less,coffee,js,jpg,gif,png}',{events:['add', 'change']}, function(event){
         if(/.less/.test(event.path)){
             return gulp
                 .src(config_css.base +'/**/*.less')
@@ -108,22 +107,6 @@ gulp.task('watch', function() {
                 })))
                 .pipe(gulp.dest(config_css.dest));
         }        
-        if(/.scss|.sass/.test(event.path)){
-            return gulp
-                .src(event.path)
-                .pipe(plumber())
-                .pipe(logger({
-                    before: 'Starting scss...',
-                    after: 'scss complete!',
-                    extname: '.css',
-                    showChange: true
-                }))
-                .pipe(sass())
-                .pipe(autoprefixer(autoprefixer({
-                    browsers: ['last 2 versions', 'Safari', 'Explorer <= 9','Chrome','Firefox <= 12']
-                })))
-                .pipe(gulp.dest(config_css.dest));
-        }
         if(/.coffee/.test(event.path)){
             return gulp
                 .src(event.path)

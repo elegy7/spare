@@ -206,7 +206,7 @@ define(function (require, exports, module) {
         $('[data-valid]', this).each(function(index, el){
             if(!end){
                 $(el).trigger('eValid')
-                hasError = $(el).hasClass('ee-invalid')
+                var hasError = $(el).hasClass('ee-invalid')
                 if(hasError) end = true
             }
         })

@@ -33,50 +33,50 @@ define(function(require, exports, module){
         },3000)
     }
     exports.show = function(msg,lock){
-        callback = typeof arguments[arguments.length-1]=='function' ? arguments[arguments.length-1] : function(){}
-        option = ''
+        var callback = typeof arguments[arguments.length-1]=='function' ? arguments[arguments.length-1] : function(){}
+        var option = ''
         if(lock) option = 'lock'
         message(msg, option, callback)
     }
 
     exports.warning = function(msg,lock){
-        callback = typeof arguments[arguments.length-1]=='function' ? arguments[arguments.length-1] : function(){}
-        option = 'warning'
+        var callback = typeof arguments[arguments.length-1]=='function' ? arguments[arguments.length-1] : function(){}
+        var option = 'warning'
         if(lock) option = option+' lock'
         message(msg, option, callback)
     }
 
     exports.info = function(msg,lock){
-        callback = typeof arguments[arguments.length-1]=='function' ? arguments[arguments.length-1] : function(){}
-        option = 'info'
+        var callback = typeof arguments[arguments.length-1]=='function' ? arguments[arguments.length-1] : function(){}
+        var option = 'info'
         if(lock) option = option+' lock'
         message(msg, option, callback)
     }
 
     exports.success = function(msg,lock){
-        callback = typeof arguments[arguments.length-1]=='function' ? arguments[arguments.length-1] : function(){}
-        option = 'success'
+        var callback = typeof arguments[arguments.length-1]=='function' ? arguments[arguments.length-1] : function(){}
+        var option = 'success'
         if(lock) option = option+' lock'
         message(msg, option, callback)
     }
 
     exports.error = function(msg,lock){
-        callback = typeof arguments[arguments.length-1]=='function' ? arguments[arguments.length-1] : function(){}
-        option = 'error'
+        var callback = typeof arguments[arguments.length-1]=='function' ? arguments[arguments.length-1] : function(){}
+        var option = 'error'
         if(lock) option = option+' lock'
         message(msg, option, callback)
     }
 
     exports.spec = function(msg,lock){
-        callback = typeof arguments[arguments.length-1]=='function' ? arguments[arguments.length-1] : function(){}
-        option = 'spec'
+        var callback = typeof arguments[arguments.length-1]=='function' ? arguments[arguments.length-1] : function(){}
+        var option = 'spec'
         if(lock) option = option+' lock'
         message(msg, option, callback)
     }
 
     exports.fade = function(msg,lock){
-        callback = typeof arguments[arguments.length-1]=='function' ? arguments[arguments.length-1] : function(){}
-        option = 'fade'
+        var callback = typeof arguments[arguments.length-1]=='function' ? arguments[arguments.length-1] : function(){}
+        var option = 'fade'
         if(lock) option = option+' lock'
         message(msg, option, callback)
     }

@@ -14,15 +14,15 @@ define(function(require, exports, module){
             }
           }
           if( location.href.indexOf("#") != -1){
-            str2 = hash.substr(1)
-            strs2 = str2.split("#")
-            for(var i = 0; i < strs2.length; i ++) {
-              theRequest[strs2[i].split("=")[0]]=(strs2[i].split("=")[1])
+            str = hash.substr(1)
+            strs = str.split("#")
+            for(var i = 0; i < strs.length; i ++) {
+              theRequest[strs[i].split("=")[0]]=(strs[i].split("=")[1])
             }
           }
           return theRequest
         },
-        /*在一段时间内监控某dom是否加载完成 
+        /*在一段时间内监控某dom是否加载完成
         *domId, 需要监控的节点的id
         *func, dom加载完成后的回调函数
         *timesetp, 循环间隔, 默认为50毫秒
@@ -83,7 +83,7 @@ define(function(require, exports, module){
         getELMargin : function(){
             return {
                 top:function(ele){
-                    var scrollTop = $(document).scrollTop() || $('body').scrollTop() || $('html').scrollTop() 
+                    var scrollTop = $(document).scrollTop() || $('body').scrollTop() || $('html').scrollTop()
                     return $(ele).position().top-scrollTop
                 },
                 bottom:function(ele){
@@ -101,7 +101,7 @@ define(function(require, exports, module){
             //容器和容器高
             $el = $(config.el), el_height = $el.height()
 
-            if($el.length == 0) return 
+            if($el.length == 0) return
 
             $(window).on('scroll', function(){
                 //获得容器顶部相对距离
@@ -124,8 +124,37 @@ define(function(require, exports, module){
                 if(temp){
                     clearTimeout(temp)
                 }
-                temp = setTimeout(cb,t)   
+                temp = setTimeout(cb,t)
             }
+        },
+        //浏览器版本
+        ver : function() {
+            var Sys = {};
+            var ua = navigator.userAgent.toLowerCase();
+            var s;
+            (s = ua.match(/msie ([\d.]+)/)) ? Sys.ie = s[1] :
+            (s = ua.match(/firefox\/([\d.]+)/)) ? Sys.firefox = s[1] :
+            (s = ua.match(/chrome\/([\d.]+)/)) ? Sys.chrome = s[1] :
+            (s = ua.match(/opera.([\d.]+)/)) ? Sys.opera = s[1] :
+            (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
+            var ieversion;
+            if (Sys.ie){
+            ieversion = parseInt(Sys.ie);
+            if(ieversion<8) {
+            alert("尊敬的用户！\n\n  您目前使用的Internet Explorer版本为:"+Sys.ie+"");
+            setIsTextReadOnly(true);
+            }
+            } else if (Sys.firefox) {
+            ieversion = Sys.firefox;
+            //setIsTextReadOnly(true);
+            } else if (Sys.chrome) {
+            ieversion = Sys.chrome;
+            } else if (Sys.opera) {
+            ieversion = Sys.opera;
+            }  else if (Sys.safari) {
+            ieversion = Sys.safari;
+            }
+            return Sys;
         }
     }
 })

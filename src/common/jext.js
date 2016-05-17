@@ -71,7 +71,8 @@ define(function(require, exports, module){
         // 滚动前先刷新, 判断页面高度是否改变, 改变了则解锁, 这样滚到到底部时会重新调用回调方法
         iscroll.on("scrollStart", function(){
             if(iscroll.maxScrollY == 0){
-                $pages = $el.initScroll()
+                iscroll.refresh()
+                // $pages = $el.initScroll()
             }
             else{
                 iscroll.refresh()

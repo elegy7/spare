@@ -172,7 +172,7 @@ define(function (require, exports, module) {
                 //获得验证配置的字符串并将他转换成对象
                 var options = eval( $this.data('valid') )
                 //重新触发事件时先移除错误提示
-                $this.find('+.ee-invalid-tip').remove()
+                $this.next('.ee-invalid-tip').remove()
                 $this.removeClass('ee-invalid')
                 //得到"不为空"这条规则的所在位置
                 var requiredIndex = options.indexOf('required')
@@ -196,20 +196,26 @@ define(function (require, exports, module) {
         })
     }
     //检查表单验证
-    $.fn.fireValid = function(){
+    $.fn.fireValid = function($input){
         //if $('.ee-invalid').length > 0
         //return
         $('.ee-invalid').removeClass('ee-invalid')
         var end = false
         //开启异步验证的立即执行模式
         __doValidNow = true
-        $('[data-valid]', this).each(function(index, el){
-            if(!end){
-                $(el).trigger('eValid')
-                var hasError = $(el).hasClass('ee-invalid')
-                if(hasError) end = true
-            }
-        })
+        if($input){
+            $input.trigger('eValid')
+            var hasError = $input.hasClass('ee-invalid')
+            if(hasError) end = true
+        }else{
+            $('[data-valid]', this).each(function(index, el){
+                if(!end){
+                    $(el).trigger('eValid')
+                    var hasError = $(el).hasClass('ee-invalid')
+                    if(hasError) end = true
+                }
+            })
+        }
         __doValidNow = false
         return end ? false : true
     }

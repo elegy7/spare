@@ -51,7 +51,7 @@ define(function(require, exports, module){
         if($el.find('.iscroll-box').length==0){
             $el.wrapInner('<div class="iscroll-box"></div>')
         }
-        $el.__proto__.iscroll = new IScroll($el[0])
+        $el.__proto__.iscroll = new IScroll($el[0], { mouseWheel: true, click: true })
 
         //iscroll暂停方法
         $el.__proto__.pauseScroll = function(){

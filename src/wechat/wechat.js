@@ -10,11 +10,13 @@ define(function(require, exports, module) {
 			type: "get",
 			url: config['tokenUrl'],
 			data: {
-				url: window.location.href
+				url: window.location.href.split('#')[0]
 			},
 			async: true,
 			success: function(result) {
-				result = JSON.parse(result)
+				if(typeof result == 'string'){
+					result = JSON.parse(result)	
+				}
 				wx.config({
 					debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
 					appId: result.appId, // 必填，公众号的唯一标识

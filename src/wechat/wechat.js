@@ -58,7 +58,7 @@ define(function(require, exports, module) {
 		});
 		// 分享到朋友圈  
 		wx.onMenuShareTimeline({
-			title: config['title'] || '',
+			title: config['desc'] || '',
 			link: config['link'] || '',
 			imgUrl: config['imgUrl'] || '',
 			success: function(res) {

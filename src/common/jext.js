@@ -44,9 +44,6 @@ define(function(require, exports, module){
             down: function(){}
         },conf)
 
-        //初始化元素高度
-        $el.css('height', '100%')
-
         //如果元素内部没有iscroll容器则创建一个
         if($el.find('.iscroll-box').length==0){
             $el.wrapInner('<div class="iscroll-box"></div>')
@@ -55,13 +52,15 @@ define(function(require, exports, module){
 
         //iscroll暂停方法
         $el.__proto__.pauseScroll = function(){
-            $('head').append('<style id="pause-iscroll" type="text/css">.pause-iscroll{'+this.attr('style').replace(/;/g,' !important;')+'}</style>')
-            this.addClass('pause-iscroll')
+            var $this = this.find('.iscroll-box').first()
+            $('head').append('<style id="pause-iscroll" type="text/css">.pause-iscroll{'+$this.attr('style').replace(/;/g,' !important;')+'}</style>')
+            $this.addClass('pause-iscroll')
         }
 
         //iscroll重启方法
         $el.__proto__.startScroll = function(){
-            this.removeClass('pause-iscroll')
+            var $this = this.find('.iscroll-box').first()
+            $this.removeClass('pause-iscroll')
             $('#pause-iscroll').remove()
         }
 

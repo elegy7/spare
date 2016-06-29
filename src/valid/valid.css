@@ -1,21 +1,21 @@
 .ee-invalid{
-    color: #f7462e;
-    border-color: #f7462e !important;
+    color: #e57373;
+    border-color: #e57373;
 }
 .ee-invalid:focus{
-    border-color: #f7462e;
+    border-color: #e57373;
 }
 .ee-invalid:-moz-placeholder {
-  color: #ed3957;
+  color: #e57373;
 }
 .ee-invalid::-moz-placeholder {
-  color: #ed3957;
+  color: #e57373;
 }
 .ee-invalid:-ms-input-placeholder {
-  color: #ed3957;
+  color: #e57373;
 }
 .ee-invalid::-webkit-input-placeholder {
-  color: #ed3957;
+  color: #e57373;
 }
 .ee-invalid-tip{
     width: 100%;

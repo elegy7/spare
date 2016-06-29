@@ -106,20 +106,14 @@ define(function (require, exports, module) {
         }
     }
     //错误提示方法
-    exports.showTip = function($input, $tip){
-        var position = $input.position()
-        var offsetWidth = $input.outerWidth()
-        var offsetHeight = $input.outerHeight()
-        var offsetHeightTip = $tip.outerHeight()
-        $tip.css('top', position['top'] + (offsetHeight - offsetHeightTip) / 2)
-        $tip.css('left', position['left'] + offsetWidth + 25)
-    }
+    exports.showTip = function($input, $tip){}
+    //移除错误提示
+    exports.removeTip = function($input){}
     //给表单绑定验证
     $.fn.bindValid = function(config){
         config = config || {}
-        config.evt = typeof config.evt !='undefined' && config.evt!=null ? config.evt : 'change'
         var conf = {
-            evt: config.evt ? config.evt+' eValid' : 'keyup change focus eValid',
+            evt: config.evt ? config.evt+' eValid' : 'keyup change eValid',
             ver: config.ver
         }
         //清空之前的事件和样式
@@ -154,7 +148,7 @@ define(function (require, exports, module) {
                             rule.message = rule.message.replace('{'+i+'}',param[i])
                         }
                         $this.addClass('ee-invalid')
-                        $invalid.text(rule.message) 
+                        $invalid.text(rule.message)
                         $this.after($invalid) 
                         exports.showTip($this,$invalid)
                         break           
@@ -172,16 +166,17 @@ define(function (require, exports, module) {
                 //获得验证配置的字符串并将他转换成对象
                 var options = eval( $this.data('valid') )
                 //重新触发事件时先移除错误提示
+                exports.removeTip($this)
                 $this.next('.ee-invalid-tip').remove()
                 $this.removeClass('ee-invalid')
                 //得到"不为空"这条规则的所在位置
                 var requiredIndex = options.indexOf('required')
-                if(requiredIndex!=-1 && $this.val().trim()==''){
+                if(requiredIndex!=-1 && (!$this.val() || $this.val().trim()=='')){
                     //判断否未为空
                     $this.addClass('ee-invalid')
                     $invalid.text('请将信息填写完整')
-                    $this.after($invalid)           
-                    if(e.type != 'change') exports.showTip($this,$invalid)
+                    $this.after($invalid)
+                    exports.showTip($this,$invalid)
                 }else{
                     //如果不为空,则进入自定义验证阶段
                     if(requiredIndex != -1 ) options.splice(requiredIndex,1)
@@ -200,6 +195,9 @@ define(function (require, exports, module) {
         //if $('.ee-invalid').length > 0
         //return
         $('.ee-invalid').removeClass('ee-invalid')
+        $('.ee-invalid').each(function(el){
+            exports.removeTip($(el))
+        })
         var end = false
         //开启异步验证的立即执行模式
         __doValidNow = true
@@ -209,11 +207,9 @@ define(function (require, exports, module) {
             if(hasError) end = true
         }else{
             $('[data-valid]', this).each(function(index, el){
-                if(!end){
-                    $(el).trigger('eValid')
-                    var hasError = $(el).hasClass('ee-invalid')
-                    if(hasError) end = true
-                }
+                $(el).trigger('eValid')
+                var hasError = $(el).hasClass('ee-invalid')
+                if(hasError) end = true
             })
         }
         __doValidNow = false

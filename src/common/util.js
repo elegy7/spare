@@ -65,7 +65,19 @@ define(function(require, exports, module){
         clone : function(obj){
             var cloneObj = obj ? {} : obj
             for(var key in obj){
-                cloneObj[key] = obj[key]
+                if(typeof obj[key] == 'object'){
+                    if(obj[key] instanceof Array){
+                        var arr = []
+                        for(var index in obj[key]){
+                            arr.push(obj[key][index])
+                        }
+                        cloneObj[key] = arr
+                    }else{
+                        cloneObj[key] = module.exports.clone(obj[key])
+                    }
+                }else{
+                    cloneObj[key] = obj[key]
+                }
             }
             return cloneObj
         },

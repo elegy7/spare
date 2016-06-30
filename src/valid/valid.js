@@ -159,7 +159,7 @@ define(function (require, exports, module) {
         }
         //绑定input框的 keyup 和 change事件
         var util_timeout = Util.timeout()
-        $vaild.off(conf.evt).on(conf.evt,function(e){
+        $vaild.on(conf.evt,function(e){
             var $this = $(this),
             timeout = __doValidNow ? function(cb){cb()} : util_timeout
             timeout(function(){
@@ -170,8 +170,9 @@ define(function (require, exports, module) {
                 $this.next('.ee-invalid-tip').remove()
                 $this.removeClass('ee-invalid')
                 //得到"不为空"这条规则的所在位置
-                var requiredIndex = options.indexOf('required')
-                if(requiredIndex!=-1 && (!$this.val() || $this.val().trim()=='')){
+                var requiredIndex = options.indexOf('required'),
+                    inputVal = typeof $this.val() == 'string' ? $this.val().trim() : $this.val()
+                if(requiredIndex!=-1 && $.isEmptyObject(inputVal)){
                     //判断否未为空
                     $this.addClass('ee-invalid')
                     $invalid.text('请将信息填写完整')

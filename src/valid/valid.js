@@ -192,19 +192,16 @@ define(function (require, exports, module) {
         })
     }
     //检查表单验证
-    $.fn.fireValid = function($input){
+    $.fn.fireValid = function(isInput){
         //if $('.ee-invalid').length > 0
         //return
-        $('.ee-invalid').removeClass('ee-invalid')
-        $('.ee-invalid').each(function(el){
-            exports.removeTip($(el))
-        })
+        this.clearValid(isInput)
         var end = false
         //开启异步验证的立即执行模式
         __doValidNow = true
-        if($input){
-            $input.trigger('eValid')
-            var hasError = $input.hasClass('ee-invalid')
+        if(isInput){
+            this.trigger('eValid')
+            var hasError = this.hasClass('ee-invalid')
             if(hasError) end = true
         }else{
             $('[data-valid]', this).each(function(index, el){
@@ -215,6 +212,19 @@ define(function (require, exports, module) {
         }
         __doValidNow = false
         return end ? false : true
+    }
+    $.fn.clearValid = function(isInput){
+        if(isInput){
+            exports.removeTip($(this))
+            this.removeClass('ee-invalid')
+            this.siblings('.ee-invalid-tip').remove()
+        }else{
+            this.find('.ee-invalid').each(function(el){
+                exports.removeTip($(el))
+            })
+            this.find('.ee-invalid').removeClass('ee-invalid')
+            this.find('.ee-invalid-tip').remove()
+        }
     }
 
 })

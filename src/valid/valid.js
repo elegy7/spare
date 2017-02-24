@@ -30,16 +30,30 @@ define(function (require, exports, module) {
         min:{
             validator:function(value,param){
                 if(value=='')return true
-                return value>=param[0]
+                return parseFloat(value)>=param[0]
             },
             message: '数值必须都不小于{0}'
         },
         max:{
             validator:function(value,param){
                 if(value=='')return true
-                return value<=param[0]
+                return parseFloat(value)<=param[0]
             },
             message: '数值必须都不大于{0}'
+        },
+        minout:{
+            validator:function(value,param){
+                if(value=='')return true
+                return parseFloat(value)>param[0]
+            },
+            message: '数值必须都大于{0}'
+        },
+        maxout:{
+            validator:function(value,param){
+                if(value=='')return true
+                return parseFloat(value)<param[0]
+            },
+            message: '数值必须都小于{0}'
         },
         between:{
             validator:function(value,param){
@@ -62,7 +76,7 @@ define(function (require, exports, module) {
                 var reg = /^\d+$/
                 return reg.test(value)
             },
-            message: '只能输入整数'
+            message: '只能输入正整数'
         },
         num:{
             validator: function(value, param){
@@ -88,13 +102,13 @@ define(function (require, exports, module) {
             },
           message: '请填写正确的手机号码'
         },
-        username:{
+        base:{
             validator: function(value, param){
                 if(value == '')return true
-                var reg = /[`~!@#$%^&*()+<>?:"{},.\/;'[\]]/im
+                var reg = /[`~!@# $%^&*()+<>?:"{},.\/;'[\]]/im
                 return !reg.test(value)
             },
-            message: '用户名不能含有特殊字符'
+            message: '不能含有特殊字符'
         },
         card:{
             validator: function(value, param){
@@ -205,9 +219,11 @@ define(function (require, exports, module) {
             if(hasError) end = true
         }else{
             $('[data-valid]', this).each(function(index, el){
-                $(el).trigger('eValid')
-                var hasError = $(el).hasClass('ee-invalid')
-                if(hasError) end = true
+                if($(el).is(':visible')){
+                    $(el).trigger('eValid')
+                    var hasError = $(el).hasClass('ee-invalid')
+                    if(hasError) end = true
+                }
             })
         }
         __doValidNow = false

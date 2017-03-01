@@ -3,6 +3,10 @@ define(function(require, exports, module) {
 	if(typeof wx == 'undefined'){
 		window.wx = require('http://res.wx.qq.com/open/js/jweixin-1.0.0.js');
 	}
+	if(typeof $ == 'undefined'){
+		var $ = {}
+		$.ajax = require('common/ajax')
+	}
 	exports.init = function(config,callback) {
 		callback = callback || function(){}
 		var jsApiList = config['jsApiList'] || ['hideOptionMenu', 'showOptionMenu', 'onMenuShareAppMessage', 'onMenuShareTimeline', 'onMenuShareQQ', 'onMenuShareWeibo'];

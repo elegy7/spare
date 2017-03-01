@@ -22,25 +22,14 @@ config.source.forEach(function(one){
     cmds.push(config.base+'/'+one)
 })
 
-config.commons.forEach(function(one){
+config.vendor.forEach(function(one){
     concats.push(one)
 })
 
-//seajs打包--整体打包方案
-gulp.task('transport', function(){
-    return gulp.src(cmds, {base: config.base})
-        .pipe( cmd({
-            basePath: __dirname+'/'+config.base,
-            ignore: config.ignore,
-            only: true
-        }))
-        .pipe(concat(config.output))
-        .pipe(gulp.dest(config.dest))
-}) 
 
 gulp.task('merge', function(){
     return gulp.src(concats)
-    .pipe(concat('common.js'))
+    .pipe(concat('vendor.min.js'))
     .pipe(gulp.dest(config.dest))
 })
 
@@ -49,8 +38,6 @@ gulp.task('min', function(){
         .pipe(uglify())
         .pipe(gulp.dest(config.dest))
 })
-
-gulp.task('fix', ['transport', 'merge'])
 
 //seajs打包--入口文件打包方案
 gulp.task('default',['merge'], function(){
@@ -65,9 +52,23 @@ gulp.task('default',['merge'], function(){
         .pipe(gulp.dest(config.dest))
     }
 }) 
+//seajs打包--整体打包方案
+gulp.task('transport', function(){
+    return gulp.src(cmds, {base: config.base})
+        .pipe( cmd({
+            basePath: __dirname+'/'+config.base,
+            ignore: config.ignore,
+            only: true
+        }))
+        .pipe(concat(config.output))
+        .pipe(gulp.dest(config.dest))
+}) 
+gulp.task('fix', ['transport', 'merge'])
+
 
 //less打包
 gulp.task('less', function(){
+    if(!config_css) return
     return gulp
         .src(config_css.base +'/**/*.less')
         .pipe(less())
@@ -80,6 +81,7 @@ gulp.task('less', function(){
 
 //图片压缩
 gulp.task('imagemin', function () {
+    if(!config_img) return
     gulp.src(config_img.base +'/**/*.{jpg,png,gif}')
         .pipe(imagemin({
             optimizationLevel: 5, //类型：Number  默认：3  取值范围：0-7（优化等级）

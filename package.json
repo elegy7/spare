@@ -1,5 +1,5 @@
 {
-  "name": "vue-seajs",
+  "name": "cmd-seajs",
   "version": "0.1.0",
   "description": "",
   "main": "gulpfile.js",
@@ -17,13 +17,13 @@
     },
     "source": [
       "common/{util,ie}.js",
-      "slides/banner.js",
+      "wechat/wechat.js",
       "valid/*.js",
       "message/*.js"
     ],
-    "commons": [],
+    "vendor": ["./lib/jquery-3.1.1.js","./lib/seajs/*.js"],
     "ignore": [],
-    "output": "still.js",
+    "output": "spare.min.js",
     "dest": "./dist",
     "uglify": false
   },

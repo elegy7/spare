@@ -21,7 +21,7 @@
       "valid/*.js",
       "message/*.js"
     ],
-    "vendor": ["./lib/jquery-3.1.1.js","./lib/seajs/*.js"],
+    "vendor": ["./lib/zepto.min.js","./lib/seajs/*.js"],
     "ignore": [],
     "output": "spare.min.js",
     "dest": "./dist",

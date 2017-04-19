@@ -95,12 +95,12 @@ define(function (require, exports, module) {
             message: '数据不合法,必须是手机或电话,座机带区号'
         },
         phone:{
-          validator: function(value, param){
+            validator: function(value, param){
                 if(value == '')return true
-                var reg = /^1[3|4|5|8][0-9]\d{4,8}$/
+                var reg = /^1[3|4|5|7|8][0-9]\d{4,8}$/
                 return reg.test(value)
             },
-          message: '请填写正确的手机号码'
+            message: '请填写正确的手机号码'
         },
         base:{
             validator: function(value, param){
@@ -117,7 +117,63 @@ define(function (require, exports, module) {
                 return reg.test(value)
             },
             message: '身份证号只能为15位或18位'
-        }
+        },
+        size:{
+            validator:function(value,param){
+                if(value=='')return true
+                return value.length==param[0]
+            },
+            message: '长度必须为{0}位'
+        },
+        letter: {
+            validator:function(value,param){
+                if(value=='')return true
+                var reg = /^[0-9a-zA-Z]*$/g
+                return reg.test(value)
+            },
+            message: '只能输入数字或字母'
+        },
+        name:{
+            validator: function(value, param){
+                if(value == '')return true
+                var reg = /^[\u4E00-\u9FA5A-Za-z]{2,50}$/
+                return reg.test(value)
+            },
+            message: '请输入正确的姓名,只能是中文或英文'
+        },
+        fox: {
+            validator: function(value, param){
+                if(value == '')return true
+                var reg = /\+?\d{3,4}-\d{6,}/
+                return reg.test(value)
+            },
+            message: '请输入正确的传真号码'
+        },
+        QQ: {
+            validator: function(value, param){
+                if(value == '')return true
+                var reg = /[1-9][0-9]{4,}/
+                return reg.test(value)
+            },
+            message: 'QQ号码只能是四位以上纯数字'
+        },
+        /*不能为0*/
+        withoutZero: {
+            validator: function(value, param){
+                if(value == '')return true
+                return value != 0
+            },
+            message: '不能为0'
+        },
+        /*可以输入括号和减号*/
+        parentheses: {
+            validator: function(value, param){
+                if(value == '')return true
+                var reg = /[`~!@# $%^&*+<>?:"{},.\/;'[\]]/im
+                return !reg.test(value)
+            },
+            message: '只允许数字和英文字母,-和()'
+        },
     }
     //错误提示方法
     exports.showTip = function($input, $tip){}
@@ -204,6 +260,7 @@ define(function (require, exports, module) {
                 }
             },500)
         })
+        return this
     }
     //检查表单验证
     $.fn.fireValid = function(isInput){
@@ -241,6 +298,7 @@ define(function (require, exports, module) {
             this.find('.ee-invalid').removeClass('ee-invalid')
             this.find('.ee-invalid-tip').remove()
         }
+        return this
     }
 
 })

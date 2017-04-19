@@ -167,6 +167,17 @@ define(function(require, exports, module){
             ieversion = Sys.safari;
             }
             return Sys;
+        },
+        download (url, filename) {
+            var version = this.bower()
+            if(version.chrome){
+                var aLink = document.createElement('a');
+                aLink.download = filename || '合同'
+                aLink.href = url
+                aLink.click()
+            }else{
+                window.open(url)
+            }
         }
     }
 })

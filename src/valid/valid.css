@@ -1,3 +1,23 @@
+.no-valid .ee-invalid-tip{
+    display: none;
+}
+.no-valid .ee-invalid{
+    color: #777;
+    border-color: inherit;
+}
+.no-valid .ee-invalid:-moz-placeholder {
+    color: inherit;
+}
+.no-valid .ee-invalid::-moz-placeholder {
+    color: inherit;
+}
+.no-valid .ee-invalid:-ms-input-placeholder {
+    color: inherit;
+}
+.no-valid .ee-invalid::-webkit-input-placeholder {
+    color: inherit;
+}
+
 .ee-invalid{
     color: #e57373;
     border-color: #e57373;

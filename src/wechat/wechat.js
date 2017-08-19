@@ -1,3 +1,4 @@
+window.wechat = {}
 wechat.init = function(config,callback) {
 		// http://res.wx.qq.com/open/js/jweixin-1.2.0.js
 		callback = callback || function(){}

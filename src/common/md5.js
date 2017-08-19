@@ -1,5 +1,5 @@
 define(function(require, exports, module){
-    exports.md5 = function(sMessage) {
+    module.exports = function(sMessage) {
         function RotateLeft(lValue, iShiftBits) 
         {
             return (lValue << iShiftBits) | (lValue >>> (32 - iShiftBits)); 

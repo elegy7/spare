@@ -1,5 +1,5 @@
 define(function(require, exports, module){
-	exports.IeVesion = function() {
+	module.exports = function() {
 		var Sys = {};
 		var ua = navigator.userAgent.toLowerCase();
 		var s;

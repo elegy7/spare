@@ -245,7 +245,11 @@ define(function (require, exports, module) {
                 if(requiredIndex!=-1 && $.isEmptyObject(inputVal)){
                     //判断否未为空
                     $this.addClass('ee-invalid')
-                    $invalid.text('请将信息填写完整')
+                    if($this.data('label')) {
+                        $invalid.text($this.data('label') + '不能为空')
+                    }else{
+                        $invalid.text('请将信息填写完整')
+                    }
                     $this.after($invalid)
                     exports.showTip($this,$invalid)
                 }else{

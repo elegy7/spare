@@ -1,7 +1,7 @@
 define(function (require, exports, module) {
     var Util = require('common/util')
     require('valid/valid.css')
-    
+
     // 扩展String对象
     String.prototype.trim = function(){
         return this.replace(/(^\s*)|(\s*$)/g, "")
@@ -174,6 +174,15 @@ define(function (require, exports, module) {
             },
             message: '只允许数字和英文字母,-和()'
         },
+        /*非中文*/
+        nonChinese: {
+            validator: function(value, param){
+                if(value == '')return true
+                var reg = /[\u4e00-\u9fa5]/
+                return !reg.test(value)
+            },
+            message: '密码只能由英文、数字、特殊字符组成'
+        }
     }
     //错误提示方法
     exports.showTip = function($input, $tip){}
@@ -192,6 +201,7 @@ define(function (require, exports, module) {
         $('.ee-invalid').removeClass('ee-invalid')
         //需要验证的input框
         var $vaild = $(this).find('[data-valid]')
+        if (!$vaild.length) return
         //初始化验证提示tip
         var vHeight = $vaild[0].clientHeight
         var $invalid = $('<div class="ee-invalid-tip"></div>')
@@ -219,9 +229,9 @@ define(function (require, exports, module) {
                         }
                         $this.addClass('ee-invalid')
                         $invalid.text(rule.message)
-                        $this.after($invalid) 
+                        $this.after($invalid)
                         exports.showTip($this,$invalid)
-                        break           
+                        break
                     }
                 }
             }
@@ -234,14 +244,16 @@ define(function (require, exports, module) {
             timeout = __doValidNow ? function(cb){cb()} : util_timeout
             timeout(function(){
                 //获得验证配置的字符串并将他转换成对象
-                var options = eval( $this.data('valid') )
+                var options = JSON.parse( $this.data('valid').replace(/\'/g,'"') )
                 //重新触发事件时先移除错误提示
                 exports.removeTip($this)
                 $this.next('.ee-invalid-tip').remove()
                 $this.removeClass('ee-invalid')
                 //得到"不为空"这条规则的所在位置
                 var requiredIndex = options.indexOf('required'),
-                    inputVal = typeof $this.val() == 'string' ? $this.val().trim() : $this.val()
+                    dataVal = $this.attr('data-val'),
+                    inputVal = typeof dataVal != 'undefined' ? dataVal : typeof $this.val() == 'string' ? $this.val().trim() : $this.val()
+                // if(requiredIndex!=-1 && ($.isEmptyObject(inputVal) || inputVal == '0.00')){
                 if(requiredIndex!=-1 && $.isEmptyObject(inputVal)){
                     //判断否未为空
                     $this.addClass('ee-invalid')
@@ -262,7 +274,7 @@ define(function (require, exports, module) {
                         doValid.call(this, exports.asyncRules, options, $this, $invalid)
                     }
                 }
-            },500)
+            },200)
         })
         return this
     }

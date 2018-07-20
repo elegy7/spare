@@ -38,7 +38,7 @@ define(function(require, exports, module){
     }
 
     //锚链接平滑滚动
-    $("a.anchor").click(function() {
+    /* $("a.anchor").click(function() {
         $("html, body").animate({
             scrollTop: $($(this).attr("href")).offset().top + "px"
         }, {
@@ -46,5 +46,5 @@ define(function(require, exports, module){
             easing: "swing"
         })
         return false
-    })
+    }) */
 })

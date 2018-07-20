@@ -1,21 +1,21 @@
 define(function(require, exports, module){
 	exports.sync = function(funcs){
-		var callback_str = ' ';
+		var callback_str = ' '
 		funcs.forEach(function(func, index){
-			callback_str = callback_str.replace(' ','funcs['+index+'](function(){ })');
-		});
-		callback_str = callback_str.replace('function(){ }','');
-		eval(callback_str);
+			callback_str = callback_str.replace(' ','funcs['+index+'](function(){ })')
+		})
+		callback_str = callback_str.replace('function(){ }','')
+		eval(callback_str)
 	}
 	exports.async = function(funcs, lastDone){
-		var doneTime = 0;
+		var doneTime = 0
 		funcs.forEach(function(func){
 			func(function(){
-				doneTime++;
+				doneTime++
 				if(doneTime==funcs.length){
-					lastDone();
+					lastDone()
 				}
-			});
-		});
+			})
+		})
 	}
-});
+})

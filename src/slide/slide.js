@@ -1,5 +1,5 @@
 define(function(require, exports,module){
-    require('slide/slide.css')
+    require('./slide.css')
     var config, lock = false, si = [], $el, $ul, $lis, $firstImg, $turnPrev, $turnNext, $tab, $title, $bar
     exports.init = function(conf){
         $el = $(conf.el), $ul = $el.find('ul'), $lis = $ul.find('li')

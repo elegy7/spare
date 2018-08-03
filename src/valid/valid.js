@@ -101,16 +101,15 @@ define(function (require, exports, module) {
         var conf = {
             evt: config.evt ? config.evt + ' eValid' : 'keyup change eValid',
             ver: config.ver
-        }
+        }, $this = $(this)
         //清空之前的事件和样式
-        $(this).off(conf.evt)
+        $this.off(conf.evt)
         $('.ee-invalid-tip').remove()
         $('.ee-invalid').removeClass('ee-invalid')
         //需要验证的input框
-        var $vaild = $(this).find('[data-valid]')
-        if (!$vaild.length) return
+        var $valid = $this.attr('data-valid') ? $this : $this.find('[data-valid]')
+        if (!$valid.length) return
         //初始化验证提示tip
-        var vHeight = $vaild[0].clientHeight
         var $invalid = $('<div class="ee-invalid-tip"></div>')
 
         //定义匹配验证规则并执行验证的方法
@@ -119,7 +118,7 @@ define(function (require, exports, module) {
             var inRule = false
             for (var i in options) {
                 //根据自定义验证的名称去匹配验证规则里的验证方法
-                var rule = Util.clone(rules[options[i].split('(')[0]]) //ver1.3的bug修复
+                var rule = Util.clone(rules[options[i].split('(')[0]]) 
                 //获得自定义验证的参数
                 var param = options[i].split('(')[1] ? options[i].split('(')[1].split(')')[0].split(',') : ''
                 //如果在验证规则里匹配到了,则进行验证
@@ -146,14 +145,14 @@ define(function (require, exports, module) {
         }
         //绑定input框的 keyup 和 change事件
         var util_timeout = Util.timeout()
-        $vaild.on(conf.evt, function (e) {
+        $valid.on(conf.evt, function (e) {
             var $this = $(this),
                 timeout = __doValidNow ? function (cb) {
                     cb()
                 } : util_timeout
             timeout(function () {
                 //获得验证配置的字符串并将他转换成对象
-                var options = JSON.parse($this.data('valid').replace(/\'/g, '"'))
+                var options = JSON.parse($this.attr('data-valid').replace(/\'/g, '"'))
                 //重新触发事件时先移除错误提示
                 exports.removeTip($this)
                 $this.next('.ee-invalid-tip').remove()

@@ -3,7 +3,7 @@ define(function (require, exports, module) {
     require('valid/valid.css')
 
     // 扩展String对象
-    String.prototype.trim = function(){
+    String.prototype.trim = function () {
         return this.replace(/(^\s*)|(\s*$)/g, "")
     }
     //立即验证模式
@@ -12,187 +12,94 @@ define(function (require, exports, module) {
     exports.asyncRules = {}
 
     exports.rules = {
-        email:{
-            validator: function(value, param){
-                if(value=='')return true
+        email: {
+            validator: function (value, param) {
+                if (value == '') return true
                 var reg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
                 return reg.test(value)
             },
             message: '邮箱格式不正确'
         },
-        length:{
-            validator:function(value,param){
-                if(value=='')return true
-                return value.length>=param[0] && value.length<=param[1]
+        length: {
+            validator: function (value, param) {
+                if (value == '') return true
+                return value.length >= param[0] && value.length <= param[1]
             },
             message: '长度必须在{0}到{1}位之间'
         },
-        min:{
-            validator:function(value,param){
-                if(value=='')return true
-                return parseFloat(value)>=param[0]
-            },
-            message: '数值必须都不小于{0}'
-        },
-        max:{
-            validator:function(value,param){
-                if(value=='')return true
-                return parseFloat(value)<=param[0]
-            },
-            message: '数值必须都不大于{0}'
-        },
-        minout:{
-            validator:function(value,param){
-                if(value=='')return true
-                return parseFloat(value)>param[0]
-            },
-            message: '数值必须都大于{0}'
-        },
-        maxout:{
-            validator:function(value,param){
-                if(value=='')return true
-                return parseFloat(value)<param[0]
-            },
-            message: '数值必须都小于{0}'
-        },
-        between:{
-            validator:function(value,param){
-                if(value=='')return true
-                return value>=param[0] && value<=param[1]
+        between: {
+            validator: function (value, param) {
+                if (value == '') return true
+                return value >= param[0] && value <= param[1]
             },
             message: '数值必须在{0}到{1}位之间'
         },
-        passEQ:{
-            validator: function(value, param){
-                if(value=='')return true
-                var passOne = $(this).closest('form').find('[name='+param[0]+']')[0]
-                return $(passOne).val()==value
+        passEQ: {
+            validator: function (value, param) {
+                if (value == '') return true
+                var passOne = $(this).closest('form').find('[name=' + param[0] + ']')[0]
+                return $(passOne).val() == value
             },
             message: '两次密码输入必须一致'
         },
-        int:{
-            validator: function(value, param){
-                if(value == '')return true
+        int: {
+            validator: function (value, param) {
+                if (value == '') return true
                 var reg = /^\d+$/
                 return reg.test(value)
             },
             message: '只能输入正整数'
         },
-        num:{
-            validator: function(value, param){
-                if(value == '')return true
+        num: {
+            validator: function (value, param) {
+                if (value == '') return true
                 var reg = /^[+-]?\d+(\.\d+)?$/
                 return reg.test(value)
             },
             message: '只能输入数字'
         },
-        tel:{
-            validator: function(value, param){
-                if(value == '')return true
+        tel: {
+            validator: function (value, param) {
+                if (value == '') return true
                 var reg = /^(\({0,1}\d{3,4})\){0,1}(-){0,1}(\d{7,8})$/
                 return reg.test(value)
             },
             message: '数据不合法,必须是手机或电话,座机带区号'
         },
-        phone:{
-            validator: function(value, param){
-                if(value == '')return true
-                var reg = /^1[3|4|5|7|8][0-9]\d{4,8}$/
+        phone: {
+            validator: function (value, param) {
+                if (value == '') return true
+                var reg = /^1[3|4|5|7|8][0-9]\d{8}$/
                 return reg.test(value)
             },
-            message: '请填写正确的手机号码'
+            message: '请填写正确的11位手机号码'
         },
-        base:{
-            validator: function(value, param){
-                if(value == '')return true
+        base: {
+            validator: function (value, param) {
+                if (value == '') return true
                 var reg = /[`~!@# $%^&*()+<>?:"{},.\/;'[\]]/im
                 return !reg.test(value)
             },
             message: '不能含有特殊字符'
         },
-        card:{
-            validator: function(value, param){
-                if(value == '')return true
+        card: {
+            validator: function (value, param) {
+                if (value == '') return true
                 var reg = /^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$/
                 return reg.test(value)
             },
             message: '身份证号只能为15位或18位'
-        },
-        size:{
-            validator:function(value,param){
-                if(value=='')return true
-                return value.length==param[0]
-            },
-            message: '长度必须为{0}位'
-        },
-        letter: {
-            validator:function(value,param){
-                if(value=='')return true
-                var reg = /^[0-9a-zA-Z]*$/g
-                return reg.test(value)
-            },
-            message: '只能输入数字或字母'
-        },
-        name:{
-            validator: function(value, param){
-                if(value == '')return true
-                var reg = /^[\u4E00-\u9FA5A-Za-z]{2,50}$/
-                return reg.test(value)
-            },
-            message: '请输入正确的姓名,只能是中文或英文'
-        },
-        fox: {
-            validator: function(value, param){
-                if(value == '')return true
-                var reg = /\+?\d{3,4}-\d{6,}/
-                return reg.test(value)
-            },
-            message: '请输入正确的传真号码'
-        },
-        QQ: {
-            validator: function(value, param){
-                if(value == '')return true
-                var reg = /[1-9][0-9]{4,}/
-                return reg.test(value)
-            },
-            message: 'QQ号码只能是四位以上纯数字'
-        },
-        /*不能为0*/
-        withoutZero: {
-            validator: function(value, param){
-                if(value == '')return true
-                return value != 0
-            },
-            message: '不能为0'
-        },
-        /*可以输入括号和减号*/
-        parentheses: {
-            validator: function(value, param){
-                if(value == '')return true
-                var reg = /[`~!@# $%^&*+<>?:"{},.\/;'[\]]/im
-                return !reg.test(value)
-            },
-            message: '只允许数字和英文字母,-和()'
-        },
-        /*非中文*/
-        nonChinese: {
-            validator: function(value, param){
-                if(value == '')return true
-                var reg = /[\u4e00-\u9fa5]/
-                return !reg.test(value)
-            },
-            message: '密码只能由英文、数字、特殊字符组成'
         }
     }
     //错误提示方法
-    exports.showTip = function($input, $tip){}
+    exports.showTip = function ($input, $tip) {}
     //移除错误提示
-    exports.removeTip = function($input){}
+    exports.removeTip = function ($input) {}
     //给表单绑定验证
-    $.fn.bindValid = function(config){
+    $.fn.bindValid = function (config) {
         config = config || {}
         var conf = {
-            evt: config.evt ? config.evt+' eValid' : 'keyup change eValid',
+            evt: config.evt ? config.evt + ' eValid' : 'keyup change eValid',
             ver: config.ver
         }
         //清空之前的事件和样式
@@ -207,30 +114,30 @@ define(function (require, exports, module) {
         var $invalid = $('<div class="ee-invalid-tip"></div>')
 
         //定义匹配验证规则并执行验证的方法
-        var doValid = function(rules, options, $this, $invalid, async){
+        var doValid = function (rules, options, $this, $invalid, async) {
             //这个字段为了判断是否通过本地验证,如果未通过,则不进行异步验证
             var inRule = false
-            for(var i in options){
+            for (var i in options) {
                 //根据自定义验证的名称去匹配验证规则里的验证方法
-                var rule = Util.clone(rules[options[i].split('(')[0]])  //ver1.3的bug修复
+                var rule = Util.clone(rules[options[i].split('(')[0]]) //ver1.3的bug修复
                 //获得自定义验证的参数
                 var param = options[i].split('(')[1] ? options[i].split('(')[1].split(')')[0].split(',') : ''
                 //如果在验证规则里匹配到了,则进行验证
-                if(rule){
+                if (rule) {
                     //调用验证规则里的方法,并将this指向到input框
-                    var bool = rule.validator.call($this,$this.val(),param)
-                    if(!bool){
-                        if(async == false){
+                    var bool = rule.validator.call($this, $this.val(), param)
+                    if (!bool) {
+                        if (async == false) {
                             inRule = true
                         }
                         //如果验证未通过, 则提示,并终止循环
-                        for(var i in param){
-                            rule.message = rule.message.replace('{'+i+'}',param[i])
+                        for (var i in param) {
+                            rule.message = rule.message.replace('{' + i + '}', param[i])
                         }
                         $this.addClass('ee-invalid')
                         $invalid.text(rule.message)
                         $this.after($invalid)
-                        exports.showTip($this,$invalid)
+                        exports.showTip($this, $invalid)
                         break
                     }
                 }
@@ -239,12 +146,14 @@ define(function (require, exports, module) {
         }
         //绑定input框的 keyup 和 change事件
         var util_timeout = Util.timeout()
-        $vaild.on(conf.evt,function(e){
+        $vaild.on(conf.evt, function (e) {
             var $this = $(this),
-            timeout = __doValidNow ? function(cb){cb()} : util_timeout
-            timeout(function(){
+                timeout = __doValidNow ? function (cb) {
+                    cb()
+                } : util_timeout
+            timeout(function () {
                 //获得验证配置的字符串并将他转换成对象
-                var options = JSON.parse( $this.data('valid').replace(/\'/g,'"') )
+                var options = JSON.parse($this.data('valid').replace(/\'/g, '"'))
                 //重新触发事件时先移除错误提示
                 exports.removeTip($this)
                 $this.next('.ee-invalid-tip').remove()
@@ -253,62 +162,62 @@ define(function (require, exports, module) {
                 var requiredIndex = options.indexOf('required'),
                     dataVal = $this.attr('data-val'),
                     inputVal = typeof dataVal != 'undefined' ? dataVal : typeof $this.val() == 'string' ? $this.val().trim() : $this.val()
-                // if(requiredIndex!=-1 && ($.isEmptyObject(inputVal) || inputVal == '0.00')){
-                if(requiredIndex!=-1 && $.isEmptyObject(inputVal)){
+                if (requiredIndex != -1 && ($.isEmptyObject(inputVal) || inputVal == '0.00')) {
+                    // if(requiredIndex!=-1 && $.isEmptyObject(inputVal)){
                     //判断否未为空
                     $this.addClass('ee-invalid')
-                    if($this.data('label')) {
+                    if ($this.data('label')) {
                         $invalid.text($this.data('label') + '不能为空')
-                    }else{
+                    } else {
                         $invalid.text('请将信息填写完整')
                     }
                     $this.after($invalid)
-                    exports.showTip($this,$invalid)
-                }else{
+                    exports.showTip($this, $invalid)
+                } else {
                     //如果不为空,则进入自定义验证阶段
-                    if(requiredIndex != -1 ) options.splice(requiredIndex,1)
+                    if (requiredIndex != -1) options.splice(requiredIndex, 1)
                     //遍历Rules数组里的所有自定义验证
                     var inRule = doValid.call(this, exports.rules, options, $this, $invalid, false)
                     //如果不在本地验证规则里,则在异步验证规则里判断
-                    if(!inRule && e['type']!='change'){
+                    if (!inRule && e['type'] != 'change') {
                         doValid.call(this, exports.asyncRules, options, $this, $invalid)
                     }
                 }
-            },200)
+            }, 200)
         })
         return this
     }
     //检查表单验证
-    $.fn.fireValid = function(isInput){
+    $.fn.fireValid = function (isInput, visibleIgnore) {
         //if $('.ee-invalid').length > 0
         //return
         this.clearValid(isInput)
         var end = false
         //开启异步验证的立即执行模式
         __doValidNow = true
-        if(isInput){
+        if (isInput) {
             this.trigger('eValid')
             var hasError = this.hasClass('ee-invalid')
-            if(hasError) end = true
-        }else{
-            $('[data-valid]', this).each(function(index, el){
-                if($(el).is(':visible')){
+            if (hasError) end = true
+        } else {
+            $('[data-valid]', this).each(function (index, el) {
+                if ($(el).is(':visible') || visibleIgnore) {
                     $(el).trigger('eValid')
                     var hasError = $(el).hasClass('ee-invalid')
-                    if(hasError) end = true
+                    if (hasError) end = true
                 }
             })
         }
         __doValidNow = false
         return end ? false : true
     }
-    $.fn.clearValid = function(isInput){
-        if(isInput){
+    $.fn.clearValid = function (isInput) {
+        if (isInput) {
             exports.removeTip($(this))
             this.removeClass('ee-invalid')
             this.siblings('.ee-invalid-tip').remove()
-        }else{
-            this.find('.ee-invalid').each(function(el){
+        } else {
+            this.find('.ee-invalid').each(function (el) {
                 exports.removeTip($(el))
             })
             this.find('.ee-invalid').removeClass('ee-invalid')

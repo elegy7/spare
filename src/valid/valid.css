@@ -18,23 +18,23 @@
     color: inherit;
 }
 
-.ee-invalid{
+input.ee-invalid,textarea.ee-invalid{
     color: #e57373;
     border-color: #e57373;
 }
-.ee-invalid:focus{
+input.ee-invalid:focus,textarea.ee-invalid:focus{
     border-color: #e57373;
 }
-.ee-invalid:-moz-placeholder {
+input.ee-invalid:-moz-placeholder,textarea.ee-invalid:-moz-placeholder {
   color: #e57373;
 }
-.ee-invalid::-moz-placeholder {
+input.ee-invalid::-moz-placeholder,textarea.ee-invalid::-moz-placeholder {
   color: #e57373;
 }
-.ee-invalid:-ms-input-placeholder {
+input.ee-invalid:-ms-input-placeholder,textarea.ee-invalid:-ms-input-placeholder {
   color: #e57373;
 }
-.ee-invalid::-webkit-input-placeholder {
+input.ee-invalid::-webkit-input-placeholder,textarea.ee-invalid::-webkit-input-placeholder {
   color: #e57373;
 }
 .ee-invalid-tip{

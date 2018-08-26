@@ -161,7 +161,7 @@ define(function (require, exports, module) {
                 var requiredIndex = options.indexOf('required'),
                     dataVal = $this.attr('data-val'),
                     inputVal = typeof dataVal != 'undefined' ? dataVal : typeof $this.val() == 'string' ? $this.val().trim() : $this.val()
-                if (requiredIndex != -1 && ($.isEmptyObject(inputVal) || inputVal == '0.00')) {
+                if (requiredIndex != -1 && ($.isEmptyObject(inputVal) || inputVal == '0.00') && ['keyup', 'eValid'].indexOf(e.type) != -1) {
                     // if(requiredIndex!=-1 && $.isEmptyObject(inputVal)){
                     //判断否未为空
                     $this.addClass('ee-invalid')
@@ -182,7 +182,7 @@ define(function (require, exports, module) {
                         doValid.call(this, exports.asyncRules, options, $this, $invalid)
                     }
                 }
-            }, 200)
+            }, 500)
         })
         return this
     }

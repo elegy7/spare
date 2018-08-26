@@ -47,7 +47,7 @@ export default {
             var reg = /^[0-9a-zA-Z]*$/g
             return reg.test(value)
         },
-        message: '只能输入数字或字母.'
+        message: '只能输入数字或字母'
     },
     bankCard: {
         validator: function (value, param) {
@@ -195,5 +195,12 @@ export default {
             return (new Date().getTime() - new Date(value).getTime()) < 0 // 86450000
         },
         message: '必须大于当前时间'
+    },
+    lengthLessThan: {
+        validator: function (value, param) {
+            if (value == '') return true
+            return value.length <= param[0]
+        },
+        message: '长度不能大于{0}位'
     }
 }

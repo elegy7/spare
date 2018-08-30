@@ -1,4 +1,5 @@
-; (function () {
+;
+(function () {
     /*eslint-disable*/
     //扩展日期格式化方法
     Date.prototype.format = function (fmt) { //author: meizz

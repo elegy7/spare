@@ -7,11 +7,11 @@ function makeModal(config) {
                 `<div class="modal-dialog">`+
                     `<div class="modal-content">`+
                         `<div class="modal-header">`+
-                            `<h4 class="modal-title">${config.title}</h4>`+
+                            `<h4 class="modal-title">${config.title || ''}</h4>`+
                         `</div>`+
                         `<div class="modal-body">`+
                             `<div class="callout">`+
-                                `${config.context}`+
+                                `${config.context || ''}`+
                             `</div>`+
                         `</div>` +
                         `<div class="modal-footer">`+

@@ -80,16 +80,6 @@ var Util = {
         }
         return cloneObj
     },
-    //同Jquery继承
-    extend: function () {
-        var target = arguments[0]
-        for (var i = 1; i < arguments.length; i++) {
-            for (var key in arguments[i]) {
-                target[key] = arguments[i][key]
-            }
-        }
-        return target
-    },
     //获得元素相对位置
     getELMargin: function () {
         return {

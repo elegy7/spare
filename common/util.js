@@ -192,6 +192,45 @@ var Util = {
         var obj = {}
         obj[browser] = version
         return obj
+    },
+    store: {
+        sessionSave: function (module, key, value) {
+            sessionStorage.setItem(module + "_" + key, JSON.stringify({
+                data: value
+            }));
+        },
+        sessionGet: function (module, key) {
+            var obj = sessionStorage.getItem(module + "_" + key);
+            try {
+                obj = JSON.parse(obj);
+                return obj.data;
+            } catch (err) {
+                return null;
+            }
+        },
+        sessionRemove: function (module, key) {
+            sessionStorage.removeItem(module + "_" + key);
+        },
+        localSave: function (module, key, value) {
+            localStorage.setItem(module + "_" + key, JSON.stringify({
+                data: value
+            }))
+        },
+        localGet: function (module, key) {
+            var obj = localStorage.getItem(module + "_" + key)
+            if (!obj) {
+                return null
+            }
+            try {
+                obj = JSON.parse(obj)
+                return obj.data
+            } catch (err) {
+                return null
+            }
+        },
+        localRemove: function (module, key) {
+            localStorage.removeItem(module + "_" + key)
+        }
     }
 }
 /* var {
@@ -215,5 +254,6 @@ export var {
     getELMargin,
     whenScroll,
     timeout,
-    bower
+    bower,
+    store
 } = Util

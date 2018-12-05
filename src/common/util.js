@@ -43,17 +43,16 @@ var Util = {
     },
     //复制对象
     clone: function(obj) {
-        return this.extend(true, {}, obj)
+        var emptyObj = {}
+        this.extend(true, emptyObj, obj)
+        return emptyObj
     },
     extend: function() {
-        var emptyObj = {}
         if (arguments[0] === true) {
-            arguments[0] = emptyObj
-            return assignDeep.call(...arguments)
+            assignDeep.call(...arguments)
         } else {
-            return Object.assign(emptyObj, ...arguments)
+            Object.assign(...arguments)
         }
-        return emptyObj
     },
     //获得元素相对位置
     getELMargin: function() {

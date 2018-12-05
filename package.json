@@ -1,5 +1,5 @@
 {
-  "name": "spare",
+  "name": "@elegy7/spare",
   "version": "1.0.0",
   "description": "some utils",
   "main": "dist/index.js",

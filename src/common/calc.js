@@ -1,4 +1,4 @@
-export default {
+var Calc = {
     /*
         函数，加法函数，用来得到精确的加法结果
         说明：javascript的加法结果会有误差，在两个浮点数相加的时候会比较明显。这个函数返回较为精确的加法结果。
@@ -6,7 +6,7 @@ export default {
         调用：Calc.Add(arg1,arg2,d)
         返回值：两数相加的结果
         */
-    Add: function (arg1, arg2) {
+    add: function (arg1, arg2) {
         arg1 = arg1.toString(), arg2 = arg2.toString();
         var arg1Arr = arg1.split("."),
             arg2Arr = arg2.split("."),
@@ -25,7 +25,7 @@ export default {
         调用：Calc.Sub(arg1,arg2)
         返回值：两数相减的结果
         */
-    Sub: function (arg1, arg2) {
+    sub: function (arg1, arg2) {
         return Calc.Add(arg1, -Number(arg2), arguments[2]);
     },
     /*
@@ -35,7 +35,7 @@ export default {
         调用：Calc.Mul(arg1,arg2)
         返回值：两数相乘的结果
         */
-    Mul: function (arg1, arg2) {
+    mul: function (arg1, arg2) {
         var r1 = arg1.toString(),
             r2 = arg2.toString(),
             m, resultVal, d = arguments[2];
@@ -50,7 +50,7 @@ export default {
         调用：Calc.Div(arg1,arg2)
         返回值：arg1除于arg2的结果
         */
-    Div: function (arg1, arg2) {
+    div: function (arg1, arg2) {
         var r1 = arg1.toString(),
             r2 = arg2.toString(),
             m, resultVal, d = arguments[2];
@@ -59,3 +59,10 @@ export default {
         return typeof d !== "number" ? Number(resultVal) : Number(resultVal.toFixed(parseInt(d)));
     }
 }
+
+export var {
+    add,
+    sub,
+    mul,
+    div
+} = Calc

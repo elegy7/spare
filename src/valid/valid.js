@@ -6,7 +6,7 @@ String.prototype.trim = function () {
 }
 //立即验证模式
 var __doValidNow = false
-export default {
+var Valid = {
     asyncRules: {},
     rules: {
         email: {
@@ -228,10 +228,10 @@ export default {
         }
     }
 }
-/* export var {
+export var {
     asyncRules,
     rules,
     showTip,
     removeTip,
     init
-} = Valid */
+} = Valid

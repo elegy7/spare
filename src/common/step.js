@@ -1,4 +1,4 @@
-export default {
+var Step = {
     sync: function (funcs) {
         var callback_str = ' '
         funcs.forEach(function (func, index) {
@@ -19,3 +19,7 @@ export default {
         })
     }
 }
+export var {
+    sync, 
+    async
+} = Step

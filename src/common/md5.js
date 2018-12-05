@@ -1,4 +1,4 @@
-export var md5 = function (sMessage) {
+export var Md5 = function (sMessage) {
     function RotateLeft(lValue, iShiftBits) {
         return (lValue << iShiftBits) | (lValue >>> (32 - iShiftBits));
     }

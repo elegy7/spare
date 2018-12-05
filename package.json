@@ -1,0 +1,23 @@
+{
+  "name": "spare",
+  "version": "1.0.0",
+  "description": "some utils",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "parcel build index.js --no-cache"
+  },
+  "keywords": [
+    "spare",
+    "elegy"
+  ],
+  "author": "Elegy",
+  "license": "ISC",
+  "dependencies": {
+    "assign-deep": "^1.0.0"
+  },
+  "repository": "https://github.com/elegy7/spare",
+  "devDependencies": {
+    "cssnano": "^4.1.7",
+    "less": "^3.9.0"
+  }
+}

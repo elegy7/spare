@@ -1,7 +1,5 @@
-;
-(function () {
-    window.wechat = {}
-    wechat.init = function (config, callback) {
+var Wechat = {
+    init: function (config, callback) {
         // http://res.wx.qq.com/open/js/jweixin-1.2.0.js
         callback = callback || function () {}
         var jsApiList = config['jsApiList'] || ['hideOptionMenu', 'showOptionMenu', 'onMenuShareAppMessage', 'onMenuShareTimeline', 'onMenuShareQQ', 'onMenuShareWeibo'],
@@ -19,8 +17,8 @@
         wx.ready(function () {
             callback()
         })
-    }
-    wechat.initShare = function (config) {
+    },
+    initShare: function (config) {
         // 发送给好友  
         wx.onMenuShareAppMessage({
             title: config['title'] || '',
@@ -89,4 +87,8 @@
             }
         });
     }
-})()
+}
+export var {
+    init,
+    initShare
+} = Wechat

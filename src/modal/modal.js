@@ -34,8 +34,8 @@ function makeModal(config) {
 
     return $modal
 }
-export default {
-    confirm: function (context, title, callback) {
+var Modal = {
+    confirm (context, title, callback) {
         var $modal = makeModal({
             context,
             title,
@@ -43,7 +43,7 @@ export default {
         })
         $modal.show().animate({'opacity': 1}, 300)
     },
-    show: function (context, title, callback) {
+    show (context, title, callback) {
         var $modal = makeModal({
             context,
             title,
@@ -52,3 +52,7 @@ export default {
         $modal.show().animate({'opacity': 1}, 300)
     }
 }
+export var {
+    confirm,
+    show
+} = Modal

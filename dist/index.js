@@ -1,2 +1,2 @@
-import './spare.js'
 import './spare.css'
+export * from './spare.js'

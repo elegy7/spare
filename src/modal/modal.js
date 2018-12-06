@@ -3,7 +3,7 @@ import './modal.less'
 function makeModal(config) {
     if ($('.spare-modal').length == 0) {
         var $modal = $(
-            `<div :id="id" class="spare-modal modal fade" tabindex="-1" data-width="560" data-backdrop="static">`+
+            `<div id="${config.id || 'modal'}" class="spare-modal modal fade" tabindex="-1" data-width="560" data-backdrop="static">`+
                 `<div class="modal-dialog">`+
                     `<div class="modal-content">`+
                         `<div class="modal-header">`+
@@ -35,15 +35,19 @@ function makeModal(config) {
     return $modal
 }
 var Modal = {
-    confirm (context, title, callback) {
+    confirm: function (context, title, callback) {
         var $modal = makeModal({
             context,
             title,
             callback
         })
-        $modal.show().animate({'opacity': 1}, 300)
+        $modal.show().animate({'opacity': 1}, 300).one('keydown', function(e) {
+            if (e.keyCode == 13) {
+                $modal.find('.btn-ok').click()
+            }
+        }).focus()
     },
-    show (context, title, callback) {
+    show: function (context, title, callback) {
         var $modal = makeModal({
             context,
             title,

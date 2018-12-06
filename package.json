@@ -4,7 +4,7 @@
   "description": "some utils",
   "main": "dist/index.js",
   "scripts": {
-    "build": "parcel build index.js --no-cache"
+    "build": "parcel build index.js --out-file spare.js --no-cache"
   },
   "keywords": [
     "spare",

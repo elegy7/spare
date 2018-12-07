@@ -123,7 +123,7 @@ var Valid = {
                     //获得自定义验证的参数
                     var param = options[i].split('(')[1] ? options[i].split('(')[1].split(')')[0].split(',') : ''
                     //如果在验证规则里匹配到了,则进行验证
-                    if (rule) {
+                    if (Object.keys(rule).length) {
                         //调用验证规则里的方法,并将this指向到input框
                         var bool = rule.validator.call($this, $this.val(), param)
                         if (!bool) {

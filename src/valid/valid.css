@@ -1,7 +1,7 @@
-.no-valid .ee-invalid-tip{
+.no-valid .ee-invalid-tip {
     display: none;
 }
-.no-valid .ee-invalid{
+.no-valid .ee-invalid {
     color: #777;
     border-color: inherit;
 }
@@ -18,26 +18,32 @@
     color: inherit;
 }
 
-input.ee-invalid,textarea.ee-invalid{
+input.ee-invalid,
+textarea.ee-invalid {
     color: #e57373;
     border-color: #e57373;
 }
-input.ee-invalid:focus,textarea.ee-invalid:focus{
+input.ee-invalid:focus,
+textarea.ee-invalid:focus {
     border-color: #e57373;
 }
-input.ee-invalid:-moz-placeholder,textarea.ee-invalid:-moz-placeholder {
-  color: #e57373;
+input.ee-invalid:-moz-placeholder,
+textarea.ee-invalid:-moz-placeholder {
+    color: #e57373;
 }
-input.ee-invalid::-moz-placeholder,textarea.ee-invalid::-moz-placeholder {
-  color: #e57373;
+input.ee-invalid::-moz-placeholder,
+textarea.ee-invalid::-moz-placeholder {
+    color: #e57373;
 }
-input.ee-invalid:-ms-input-placeholder,textarea.ee-invalid:-ms-input-placeholder {
-  color: #e57373;
+input.ee-invalid:-ms-input-placeholder,
+textarea.ee-invalid:-ms-input-placeholder {
+    color: #e57373;
 }
-input.ee-invalid::-webkit-input-placeholder,textarea.ee-invalid::-webkit-input-placeholder {
-  color: #e57373;
+input.ee-invalid::-webkit-input-placeholder,
+textarea.ee-invalid::-webkit-input-placeholder {
+    color: #e57373;
 }
-.ee-invalid-tip{
+.ee-invalid-tip {
     width: 100%;
     height: 30px;
     background: transparent;
